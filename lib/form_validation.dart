@@ -24,12 +24,12 @@ class _FormValidationState extends State<FormValidation> {
         labelText: 'Title',
       ),
       validator: (String value) {
-        if (value.isEmpty) {
+        if (value.trim().isEmpty) {
           return 'Title is required.';
         }
       },
       onSaved: (String value) {
-        _name = value;
+        _title = value;
       },
     );
   }
@@ -42,31 +42,31 @@ class _FormValidationState extends State<FormValidation> {
         labelText: 'Price',
       ),
       validator: (String value) {
-        if (value.isEmpty || int.parse(value) == 0) {
+        if (value.trim().isEmpty || int.parse(value.trim()) == 0) {
           return 'Price is required.';
         }
       },
       onSaved: (String value) {
-        _name = value;
+        _price = value;
       },
     );
   }
 
   Widget _buildDescription() {
     return TextFormField(
-      maxLength: 15,
+      maxLength: null,
       keyboardType: TextInputType.multiline,
-      maxLines: null,
+      maxLines: 3,
       decoration: InputDecoration(
         labelText: 'Description',
       ),
       validator: (String value) {
-        if (value.isEmpty) {
+        if (value.trim().isEmpty) {
           return 'Description is required.';
         }
       },
       onSaved: (String value) {
-        _name = value;
+        _description = value;
       },
     );
   }
@@ -96,13 +96,11 @@ class _FormValidationState extends State<FormValidation> {
         if (value.isEmpty) {
           return 'Email is required';
         }
-
         if (!RegExp(
                 "^[a-zA-Z0-9.!#%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*")
             .hasMatch(value)) {
           return 'Enter a valid email address';
         }
-
         // validator has to return something :)
         return null;
       },

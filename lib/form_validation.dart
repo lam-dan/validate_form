@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class FormValidation extends StatefulWidget {
   @override
@@ -37,24 +38,27 @@ class _FormValidationState extends State<FormValidation> {
   Widget _buildPrice() {
     return TextFormField(
       maxLength: 15,
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       decoration: InputDecoration(
         labelText: 'Price',
       ),
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
       validator: (String value) {
         if (value.trim().isEmpty || int.parse(value.trim()) == 0) {
           return 'Price is required.';
         }
       },
       onSaved: (String value) {
-        _price = value;
+        _price = value.trim();
       },
     );
   }
 
   Widget _buildDescription() {
     return TextFormField(
-      maxLength: null,
+      maxLength: 140,
       keyboardType: TextInputType.multiline,
       maxLines: 3,
       decoration: InputDecoration(
